@@ -1,5 +1,8 @@
 # AI-Powered-Data-Query-Assistant
 
+Download athlete and event CSV file from here:<br>
+Link:- https://drive.google.com/file/d/1gbVxvEoeFVJG7fIsH01-noqIn80oCym8/view?usp=sharing
+
 1.) Built a system that allows users to ask questions in natural language on preprocessed datasets and get results using a workflow with preprocessing, AI-based query interpretation, Pandas execution, and logging.
 
 2.) Integrated Google Gemini API to convert questions into structured JSON queries and executed aggregations, grouping, filtering, top-N, and unique counts.
