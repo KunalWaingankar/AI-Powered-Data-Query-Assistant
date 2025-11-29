@@ -1,61 +1,41 @@
 import streamlit as st
-import pickle
 import pandas as pd
-import requests
+from data_agent import DataAgent
+import preprocessor
 
-def fetch_poster(movie_id):
-    response = requests.get('https://api.themoviedb.org/3/movie/{}?api_key=7f1a4a4a4a2b00315cfd1053cfa1d14f&language=en-US'.format(movie_id))
-    data = response.json()
-    return "https://image.tmdb.org/t/p/w500" + data['poster_path']
+# -------------------------------
+# Load & preprocess your dataset
+# -------------------------------
+st.title("📊 Natural Language Data Query Agent")
 
-def recommend(movie):
-    movie_index = movies[movies['title'] == movie].index[0]
-    distances = similarity[movie_index]
-    movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
-    recommended_movies = []
-    recommended_movies_posters = []
+st.write("Ask questions like:")
+st.code("""
+1.) Which stock has highest average price in 2020?
+3.) What were the medals won by India in 2016?
+4.) Number of medals won by India in 2012?
+""")
 
-    for i in movies_list:
-        movie_id = movies.iloc[i[0]].movie_id
-        recommended_movies.append(movies.iloc[i[0]].title)
-        # fetch poster from API
-        recommended_movies_posters.append(fetch_poster(movie_id))
-    return recommended_movies, recommended_movies_posters
+# Load dataset
+df = pd.read_csv("athlete_events.csv")
+region_df = pd.read_csv("noc_regions.csv")
+stocks = pd.read_csv("Stocks.csv")
+df_clean = preprocessor.preprocess(df, region_df)
 
-movies_dict = pickle.load(open('movies_perfect.pkl', 'rb'))
-similarity = pickle.load(open('similarity_perfect.pkl', 'rb'))
-movies = pd.DataFrame(movies_dict)
+# Create your agent
+agent = DataAgent(df_clean)
 
-st.title('Movie Recommender System')
+# User input
+question = st.text_input("Ask your question:")
 
-selected_movie_name = st.selectbox(
-    "How would you like to be contacted?",
-    movies['title'].values,
-)
+if question:
+    with st.spinner("Thinking..."):
+        answer = agent.ask(question)
 
-st.write("You selected:", selected_movie_name)
+    st.subheader("🟦 Answer:")
+    st.write(answer)
 
-if st.button("Recommend"):
-    names, posters = recommend(selected_movie_name)
-    col1, col2, col3, col4, col5 = st.columns(5)
+    # If the answer is a DataFrame → show nicely
+    if isinstance(answer, pd.DataFrame):
+        st.dataframe(answer)
 
-    with col1:
-        st.text(names[0])
-        st.image(posters[0])
-
-    with col2:
-        st.text(names[1])
-        st.image(posters[1])
-
-    with col3:
-        st.text(names[2])
-        st.image(posters[2])
-
-    with col4:
-        st.text(names[3])
-        st.image(posters[3])
-
-    with col5:
-        st.text(names[4])
-        st.image(posters[4])
-
+    st.success("Query executed successfully!")
