@@ -16,7 +16,7 @@ st.code("""
 """)
 
 # Load dataset
-df = pd.read_csv("athlete_events.csv")
+df = pd.read_csv("https://huggingface.co/datasets/kunalwaingankar/olympic-project-files/resolve/main/athlete_events.csv")
 region_df = pd.read_csv("noc_regions.csv")
 stocks = pd.read_csv("Stocks.csv")
 df_clean = preprocessor.preprocess(df, region_df)
@@ -39,3 +39,4 @@ if question:
         st.dataframe(answer)
 
     st.success("Query executed successfully!")
+
