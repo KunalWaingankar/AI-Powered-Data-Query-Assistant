@@ -11,8 +11,8 @@ st.title("📊 Natural Language Data Query Agent")
 st.write("Ask questions like:")
 st.code("""
 1.) Which stock has highest average price in 2020?
-3.) What were the medals won by India in 2016?
-4.) Number of medals won by India in 2012?
+2.) What were the medals won by India in 2016?
+3.) Number of medals won by India in 2012?
 """)
 
 # Load dataset
@@ -39,4 +39,5 @@ if question:
         st.dataframe(answer)
 
     st.success("Query executed successfully!")
+
 
