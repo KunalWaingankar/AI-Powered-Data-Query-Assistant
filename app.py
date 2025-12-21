@@ -11,7 +11,7 @@ st.title("📊 Natural Language Data Query Agent")
 
 st.write("Ask questions like:")
 st.code("""
-1.) Total number of gold medals won by Germany in 2008?
+1.) Number of Gold medals won by Germany in 2008?
 2.) How many medals did India win in 2016?
 3.) What was the average price of AAPL in 2020?
 """)
@@ -48,6 +48,7 @@ if question:
         st.dataframe(answer)
 
     st.success("Query executed successfully!")
+
 
 
 
