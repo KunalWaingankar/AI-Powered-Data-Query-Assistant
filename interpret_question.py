@@ -3,10 +3,6 @@ import google.generativeai as genai
 import os
 
 genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
-st.write(
-    "API KEY FOUND:",
-    os.environ.get("GEMINI_API_KEY") is not None
-)
 
 def interpret_question(question: str, df_columns):
     """
@@ -49,4 +45,5 @@ def interpret_question(question: str, df_columns):
         return structured_query
     except Exception as e:
         return {"error": f"Failed to parse Gemini response: {e}", "raw": raw_text}
+
 
