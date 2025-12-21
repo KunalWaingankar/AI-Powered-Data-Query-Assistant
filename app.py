@@ -11,9 +11,9 @@ st.title("📊 Natural Language Data Query Agent")
 
 st.write("Ask questions like:")
 st.code("""
-1.) Which stock has highest average price in 2020?
+1.) Total number of gold medals won by Germany in 2008?
 2.) How many medals did India win in 2016?
-3.) ?
+3.) What was the average price of AAPL in 2020?
 """)
 
 #st.write(
@@ -38,7 +38,7 @@ question = st.text_input("Ask your question:")
 
 if question:
     with st.spinner("Thinking..."):
-        answer = agent1.ask(question)
+        answer = agent.ask(question)
 
     st.subheader("🟦 Answer:")
     st.write(answer)
@@ -48,6 +48,7 @@ if question:
         st.dataframe(answer)
 
     st.success("Query executed successfully!")
+
 
 
 
