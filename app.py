@@ -12,8 +12,8 @@ st.title("📊 Natural Language Data Query Agent")
 st.write("Ask questions like:")
 st.code("""
 1.) Which stock has highest average price in 2020?
-2.) What were the medals won by India in 2016?
-3.) Number of medals won by India in 2012?
+2.) How many medals did India win in 2016?
+3.) ?
 """)
 
 #st.write(
@@ -31,13 +31,14 @@ df_clean = preprocessor.preprocess(df, region_df)
 
 # Create your agent
 agent = DataAgent(df_clean)
+agent1 = DataAgent(stocks)
 
 # User input
 question = st.text_input("Ask your question:")
 
 if question:
     with st.spinner("Thinking..."):
-        answer = agent.ask(question)
+        answer = agent1.ask(question)
 
     st.subheader("🟦 Answer:")
     st.write(answer)
@@ -47,6 +48,7 @@ if question:
         st.dataframe(answer)
 
     st.success("Query executed successfully!")
+
 
 
 
