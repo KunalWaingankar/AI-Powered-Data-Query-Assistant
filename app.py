@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from data_agent import DataAgent
 import preprocessor
+import os
 
 # -------------------------------
 # Load & preprocess your dataset
@@ -44,6 +45,7 @@ if question:
         st.dataframe(answer)
 
     st.success("Query executed successfully!")
+
 
 
 
