@@ -2,7 +2,11 @@ import json
 import google.generativeai as genai
 import os
 
-genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+#genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+import streamlit as st
+import google.generativeai as genai
+
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
 def interpret_question(question: str, df_columns):
     """
@@ -45,5 +49,6 @@ def interpret_question(question: str, df_columns):
         return structured_query
     except Exception as e:
         return {"error": f"Failed to parse Gemini response: {e}", "raw": raw_text}
+
 
 
