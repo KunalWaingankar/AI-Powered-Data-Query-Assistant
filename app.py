@@ -16,10 +16,12 @@ st.code("""
 3.) Number of medals won by India in 2012?
 """)
 
-st.write(
-    "API KEY FOUND:",
-    os.environ.get("GEMINI_API_KEY") is not None
-)
+#st.write(
+ #   "API KEY FOUND:",
+  #  os.environ.get("GEMINI_API_KEY") is not None
+#)
+
+st.write("API KEY FOUND:", "GEMINI_API_KEY" in st.secrets)
 
 # Load dataset
 df = pd.read_csv("https://huggingface.co/datasets/kunalwaingankar/olympic-project-files/resolve/main/athlete_events.csv")
@@ -45,6 +47,7 @@ if question:
         st.dataframe(answer)
 
     st.success("Query executed successfully!")
+
 
 
 
